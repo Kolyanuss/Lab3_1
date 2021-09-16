@@ -1,0 +1,36 @@
+﻿** Выделение
+     Таблицы, которые будут перестроены
+       Нет
+     Кластеризованные индексы, которые будут удалены
+       Нет
+     Кластеризованные индексы, которые будут созданы
+       Нет
+     Возможные проблемы, связанные с данными
+       Нет
+
+** Действия пользователя
+     Создать
+       [dbo].[Employees] (Таблица)
+       [dbo].[Employees_Skills] (Таблица)
+       [dbo].[Roles] (Таблица)
+       [dbo].[Scores] (Таблица)
+       [dbo].[Skills] (Таблица)
+       [dbo].[Users] (Таблица)
+       [dbo].[Users_Roles] (Таблица)
+       [dbo].[DF_Employees_IsActive] (Ограничение по умолчанию)
+       [dbo].[DF_Employees_DateCreated] (Ограничение по умолчанию)
+       [dbo].[DF_Roles_DateCreated] (Ограничение по умолчанию)
+       [dbo].[DF_Users_IsAdmin] (Ограничение по умолчанию)
+       [dbo].[DF_Users_DateCreated] (Ограничение по умолчанию)
+       [dbo].[SP_DeleteRecordFromTable] (Процедура)
+       [dbo].[SP_GetAllEmployeeSkillsByEmployeeId] (Процедура)
+       [dbo].[SP_GetAllRecordsFromTable] (Процедура)
+       [dbo].[SP_GetRecordByIdFromTable] (Процедура)
+       [dbo].[SP_InsertRecordToTable] (Процедура)
+       [dbo].[SP_UnActivateRecordInTable] (Процедура)
+       [dbo].[SP_UpdateRecordInTable] (Процедура)
+
+** Корректирующие действия
+
+Определены различные параметры сортировки для проекта и конечных баз данных. Возможны ошибки развертывания.
+

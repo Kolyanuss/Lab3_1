@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillAppAdoDapperWebApi.WEBAPI", "SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.WEBAPI.csproj", "{0AD9516D-9729-41D5-B8FE-D31A024E3A81}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SkillAppAdoDapperWebApi.DATABASE", "SkillAppAdoDapperWebApi.DATABASE\SkillAppAdoDapperWebApi.DATABASE.sqlproj", "{71D5D547-F2D9-44BE-8B89-43E1F2C809FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillAppAdoDapperWebApi.DAL", "SkillAppAdoDapperWebApi.DAL\SkillAppAdoDapperWebApi.DAL.csproj", "{2297F345-FC2C-4ACD-A64E-59645510B50A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AD9516D-9729-41D5-B8FE-D31A024E3A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD9516D-9729-41D5-B8FE-D31A024E3A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD9516D-9729-41D5-B8FE-D31A024E3A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD9516D-9729-41D5-B8FE-D31A024E3A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D5D547-F2D9-44BE-8B89-43E1F2C809FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D5D547-F2D9-44BE-8B89-43E1F2C809FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D5D547-F2D9-44BE-8B89-43E1F2C809FD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{71D5D547-F2D9-44BE-8B89-43E1F2C809FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D5D547-F2D9-44BE-8B89-43E1F2C809FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71D5D547-F2D9-44BE-8B89-43E1F2C809FD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2297F345-FC2C-4ACD-A64E-59645510B50A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2297F345-FC2C-4ACD-A64E-59645510B50A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2297F345-FC2C-4ACD-A64E-59645510B50A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2297F345-FC2C-4ACD-A64E-59645510B50A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DBDE057-3713-4B4E-8F4D-45FFEEFBF5C7}
+	EndGlobalSection
+EndGlobal

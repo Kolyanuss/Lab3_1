@@ -1,0 +1,15 @@
+services:
+  skillappadodapperwebapi.webapi:
+    build:
+      context: C:\- ASP.NET CORE Examples\SkillAppAdoDapperWebApi
+      dockerfile: SkillAppAdoDapperWebApi/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: skillappadodapperwebapiwebapi
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\tomka\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+version: '3.4'

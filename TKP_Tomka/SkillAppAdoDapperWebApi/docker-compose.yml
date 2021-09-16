@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  skillappadodapperwebapi.webapi:
+    image: ${DOCKER_REGISTRY-}skillappadodapperwebapiwebapi
+    build:
+      context: .
+      dockerfile: SkillAppAdoDapperWebApi/Dockerfile
