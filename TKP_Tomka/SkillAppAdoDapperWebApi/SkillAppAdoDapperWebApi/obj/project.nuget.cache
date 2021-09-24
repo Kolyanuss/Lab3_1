@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7hTGTFz1fqqUMyo325aIkCa3xa70JFXZhx2AT/HMhSBBZmyDFgj7eJAaPHndFYPyIyVS+jWW/uiksr4AXELmYw==",
+  "dgSpecHash": "t69FNGFaFlLza4BAk2DUAdiGJaV1fOvB1xgvpZEtVb7lQQdQcL0Vl5S9u/nuOe7dL4B0cRRh9HLOsc0+V24dVA==",
   "success": true,
-  "projectFilePath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.WEBAPI.csproj",
+  "projectFilePath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi2\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.WEBAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mukol\\.nuget\\packages\\dapper\\2.0.30\\dapper.2.0.30.nupkg.sha512",
     "C:\\Users\\mukol\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

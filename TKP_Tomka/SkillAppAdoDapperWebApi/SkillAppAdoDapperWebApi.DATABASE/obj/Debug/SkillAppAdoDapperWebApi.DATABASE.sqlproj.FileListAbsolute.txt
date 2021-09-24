@@ -16,9 +16,9 @@ C:\- ASP.NET CORE Examples\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATAB
 C:\- ASP.NET CORE Examples\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.sqlprojAssemblyReference.cache
 C:\- ASP.NET CORE Examples\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.dll
 C:\- ASP.NET CORE Examples\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.pdb
-C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\bin\Debug\SkillAppAdoDapperWebApi.DATABASE.dacpac
-C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\bin\Debug\SkillAppAdoDapperWebApi.DATABASE.dll
-C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\bin\Debug\SkillAppAdoDapperWebApi.DATABASE.pdb
-C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.sqlproj.AssemblyReference.cache
-C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.dll
-C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.pdb
+C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi2\SkillAppAdoDapperWebApi.DATABASE\bin\Debug\SkillAppAdoDapperWebApi.DATABASE.dacpac
+C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi2\SkillAppAdoDapperWebApi.DATABASE\bin\Debug\SkillAppAdoDapperWebApi.DATABASE.dll
+C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi2\SkillAppAdoDapperWebApi.DATABASE\bin\Debug\SkillAppAdoDapperWebApi.DATABASE.pdb
+C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi2\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.sqlproj.AssemblyReference.cache
+C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi2\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.dll
+C:\LABKI_3k\TKP_Tomka\SkillAppAdoDapperWebApi2\SkillAppAdoDapperWebApi.DATABASE\obj\Debug\SkillAppAdoDapperWebApi.DATABASE.pdb

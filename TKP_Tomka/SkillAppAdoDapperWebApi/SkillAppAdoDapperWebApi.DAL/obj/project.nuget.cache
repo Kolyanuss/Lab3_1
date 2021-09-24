@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yyf1zepqancSGtSHwabW+lL8FQQxoa2LPjHn6lT0tWG3tMcjh8TcbeuX5xhxC5Cz2HEkS/jSUZ0tabZww0mt9Q==",
+  "dgSpecHash": "4sS6t1wmMmBso8nvskb64pZpBYwD1oZ+PbUngfLESPXCpXyAQU5eW/YrzS+dcwiVzXADBRqKb38t8PJ5MOnjMQ==",
   "success": true,
-  "projectFilePath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj",
+  "projectFilePath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi2\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mukol\\.nuget\\packages\\dapper\\2.0.30\\dapper.2.0.30.nupkg.sha512",
     "C:\\Users\\mukol\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",

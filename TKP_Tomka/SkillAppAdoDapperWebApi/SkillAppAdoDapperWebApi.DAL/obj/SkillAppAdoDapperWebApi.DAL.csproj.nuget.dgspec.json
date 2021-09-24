@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj": {}
+    "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi2\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj": {}
   },
   "projects": {
-    "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj": {
+    "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi2\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj",
+        "projectUniqueName": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi2\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj",
         "projectName": "SkillAppAdoDapperWebApi.DAL",
-        "projectPath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj",
+        "projectPath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi2\\SkillAppAdoDapperWebApi.DAL\\SkillAppAdoDapperWebApi.DAL.csproj",
         "packagesPath": "C:\\Users\\mukol\\.nuget\\packages\\",
-        "outputPath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi\\SkillAppAdoDapperWebApi.DAL\\obj\\",
+        "outputPath": "C:\\LABKI_3k\\TKP_Tomka\\SkillAppAdoDapperWebApi2\\SkillAppAdoDapperWebApi.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
