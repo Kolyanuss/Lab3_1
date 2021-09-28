@@ -1,0 +1,16 @@
+solid - фундаментальний
+imperative to have - обов'язково мати
+robust - міцний\надійний
+appreciate - оцінять
+comparative analysis - порівняльний аналіз
+advantages - переваги
+
+
+1 Чи ти чув щось про фреймворки Django або React?
+  Have you heard anything about Django or React frameworks?
+2 Ти знаєш як працює хеш-таблиця, та коли доцільно використовувати list а коли array?
+  Do you know how a hash table works, and when it is advisable to use list and when array?
+3 And, what advantages B-Tree offers over an array?
+  І які переваги бінарних дерев над масивом?
+4 Які види дерев ти знаєш?
+  What types of trees do you know?
