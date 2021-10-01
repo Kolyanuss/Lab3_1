@@ -32,8 +32,6 @@ console.log(myObj.myProperty2);
 
 ///
 function removeProperty(obj, keyForDel) {
-    // obj.removeProperty(keyForDel);
-    // obj[keyForDel].removeProperty();
     delete obj[keyForDel];
 }
 var obj = {
