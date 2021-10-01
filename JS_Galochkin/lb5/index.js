@@ -143,11 +143,10 @@ function flipEveryNChars(str, n) {
     }
     return '1.12\n' + rez;
 }
-var output = flipEveryNChars('a short exampleab ', 5);
+var output = flipEveryNChars('a short example_ab-', 5);
 console.log(output);
 
 function detectOutlierValue(str) {
-    var rez;
     var arr = str.split(" ");
 
     for (let i = 0; i < arr.length; i++) {
@@ -157,21 +156,109 @@ function detectOutlierValue(str) {
         return '1.13\nNo number';
     }
 
-    var par = 0, nepar = 0;
+    var par = 0, nepar = 0, idPar, idNepar;
 
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] % 2 == 0) {
             par++;
-        } else nepar++;
+            idPar = i;
+        } else {
+            nepar++;
+            idNepar = i;
+        }
     }
-    if (par > 1 && nepar > 1) {
+    if (par > 1 && nepar > 1 || par == nepar) {
         return '1.13\nNo unicue';
     }
 
-    
-
-    return '1.13\n' + rez;
+    if (par == 1) {
+        return '1.13\n' + arr[idPar];
+    } else return '1.13\n' + arr[idNepar];
 }
 var output = detectOutlierValue("2 4 7 8 10");
 console.log(output);
 
+function findPairForSum(mas, sum) {
+    var rez = [];
+    for (let i = 0; i < mas.length; i++) {
+        for (let j = i + 1; j < mas.length; j++) {
+            if (mas[i] + mas[j] == sum) {
+                rez.push(mas[i]);
+                rez.push(mas[j]);
+            }
+        }
+    }
+    return '1.14\n[' + rez + ']';
+}
+var output = findPairForSum([3, 34, 4, 12, 5, 2], 9);
+console.log(output);
+
+function checkDzerkal2Str(str1, str2) {
+    var rez = false;
+    if (str1.length != str2.length) {
+        return '1.15\n' + rez;
+    }
+    for (let i = 0; i < str2.length; i++) {
+        if (str2[i] == str1[0]) {
+            rez = true;
+            for (let j = 0, l = i; j < str1.length; j++, l++) {
+                if (l == str2.length) {
+                    l = 0;
+                }
+                if (str2[l] != str1[j]) {
+                    rez = false;
+                }
+            }
+        }
+    }
+    return '1.15\n' + rez;
+}
+var output = checkDzerkal2Str("hello world", "orldhello w");
+console.log(output);
+
+function binarySerch(arr, num) {
+    var index = 'no number';
+    var mId = parseInt(arr.length / 2);
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[mId] == num) {
+            index = mId;
+            break;
+        }
+        if (arr[mId] > num) {
+            mId = parseInt(mId / 2);
+        } else
+            mId = parseInt(mId + (mId / 2));
+    }
+    return '1.16\nid ' + index;
+}
+var arr = [1, 3, 16, 22, 31, 33, 34];
+var output = binarySerch(arr, 31);
+console.log(output);
+
+function chekIzogram(str) {
+    var rez = true;
+    for (let i = 0; i < str.length; i++) {
+        for (let j = i + 1; j < str.length; j++) {
+            if (str[i] == str[j]) {
+                rez = false;
+                break;
+            }
+        }
+    }
+    return '1.17\n' + rez;
+}
+var output = chekIzogram("qwe rty");
+console.log(output);
+
+function chekPalindrom(str) {
+    var rez = true;
+    for (let i = 0; i < parseInt(str.length / 2); i++) {
+        if (str[i] != str[str.length - 1 - i]) {
+            rez = false;
+            break;
+        }
+    }
+    return '1.18\n' + rez;
+}
+var output = chekPalindrom("xyzzyx");
+console.log(output);
