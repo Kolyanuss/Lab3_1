@@ -147,11 +147,29 @@ var output = flipEveryNChars('a short exampleab ', 5);
 console.log(output);
 
 function detectOutlierValue(str) {
-    var rez = "";
+    var rez;
     var arr = str.split(" ");
-    arr = parseInt(arr);
-    console.log(arr);
+
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = parseInt(arr[i]);
+    }
+    if (arr.length < 1) {
+        return '1.13\nNo number';
+    }
+
+    var par = 0, nepar = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 == 0) {
+            par++;
+        } else nepar++;
+    }
+    if (par > 1 && nepar > 1) {
+        return '1.13\nNo unicue';
+    }
+
     
+
     return '1.13\n' + rez;
 }
 var output = detectOutlierValue("2 4 7 8 10");
