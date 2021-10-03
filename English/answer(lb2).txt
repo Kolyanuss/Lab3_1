@@ -1,0 +1,3 @@
+1) For the database to work quickly and correctly, you need to bring it to "normal form". 
+This is called normalization of relations.
+There are a total of 6 "normal forms", and a few small additional ones.
