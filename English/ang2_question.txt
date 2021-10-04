@@ -1,11 +1,3 @@
-solid - фундаментальний
-imperative to have - обов'язково мати
-robust - міцний\надійний
-appreciate - оцінять
-comparative analysis - порівняльний аналіз
-advantages - переваги
-
-
 1 Чи ти чув щось про фреймворки Django або React?
   Have you heard anything about Django or React frameworks?
 2 Ти знаєш як працює хеш-таблиця, та коли доцільно використовувати list а коли array?
