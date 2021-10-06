@@ -1,3 +1,4 @@
+We gathered here to talk about data struct
 1) How to optimize the database to make it faster?
 For the database to work quickly and correctly, you need to bring it to "normal form". 
 This is called normalization of relations.
