@@ -1,0 +1,37 @@
+<HTML ID='DOCUM'>
+<CENTER>
+    <H1 ID='zag'> ВАСЬКА</h1>
+    Варіант, сумісний з Mozilla
+    <P>
+    <form NAME='f1'>
+        <INPUT TYPE=BUTTON name="bot" onclick=bm() value='Збільшити'>
+    </form>
+    <P> <IMG SRC="VaskaM.jpg" ID='Vas' onclick=bm()>
+</CENTER>
+<!-- В скрипті закоментований вивід вікна зі списком об'єктів -->
+<script>
+    var msg = ''
+    for (i = 0; i < document.all.length; i++)
+        msg += i + ' ' + document.all[i].tagName + ' ID=' + document.all[i].id + '\n'
+    alert(msg)
+    flag = true
+    function bm() {
+        if (flag) {
+            document.images[0].src = 'VaskaB.jpg';
+            flag = false;
+            document.forms[0].bot.value = "Зменшити"
+            document.forms[0].bot.style.background = 'red'
+            document.all.bot.style.color = 'black';
+        }
+        else {
+            document.getElementById("Vas").src = 'VaskaM.jpg';
+            //обращение к кнопке по индексу 
+            document.forms[0].bot.value = "Збільшити"
+            document.forms[0].bot.style.background = 'green'
+            document.all.bot.style.color = 'white';
+            flag = true;
+        }
+    }
+</script>
+
+</HTML>
