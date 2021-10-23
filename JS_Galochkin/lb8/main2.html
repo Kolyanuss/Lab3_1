@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>завдання 2.2</title>
+</head>
+<script>
+    flag1 = true;
+
+    function func1(evt) {
+        var e = evt || window.event;
+        var elem = e.target || e.srcElement;
+
+        id = elem.id;
+        if (id == "img1") {
+            img = document.getElementById(id);
+            desc = document.getElementById("desc");
+            if (flag1) {
+                flag1 = false;
+                img.src = "GariPoter2.jpg";
+                desc.innerHTML = "Gari Poter 2";
+            } else {
+                flag1 = true;
+                img.src = "GariPoter1.jpg";
+                desc.innerHTML = "Gari Poter 1";
+            }
+        } else
+            if (id == "desc") {
+                if (flag1) {
+                    desc.innerHTML = "NOT Beauty Gari";
+                } else {
+                    desc.innerHTML = "Beauty Gari";
+                }
+            }
+    }
+</script>
+
+<body align="center" onclick="func1(event)">
+    <img id="img1" src="GariPoter1.jpg" alt="img">
+    <p id="desc" style="font-size: 25pt;"> Description </p>
+</body>
+
+</html>
