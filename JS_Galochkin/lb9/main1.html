@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Замовлення меблів</title>
+</head>
+<script>
+    function arg(fld) {
+        x = parseInt(fld.value); // введене значення
+        if (!Number.isInteger(x)) // умови перевірки
+        {
+            alert("Error!!!");
+            fld.focus();
+            fld.select()
+        } else if (x > 100) {
+            document.all.info.innerHTML = "";
+            alert("Вибачте, в нас немає стільки товарів");
+        } else
+            document.all.info.innerHTML = "<h3>Ваше завомлення прийняте</h3>"
+    }
+
+</script>
+
+<body>
+    <h1>Замовлення меблів</h1>
+    <select name="name1" id="1">
+        <option value="">шафа</option>
+        <option value="">стіл</option>
+        <option value="">сервант</option>
+    </select>
+
+    <select name="name2" id="2">
+        <option value="">дуб</option>
+        <option value="">горіх</option>
+        <option value="">бук</option>
+    </select>
+
+    <input type="text" placeholder="к-сть товарів" size=8 onchange="arg(this)">
+    <button type="submit">submit</button>
+    <br>
+    <p id="info"></p>
+</body>
+
+</html>
