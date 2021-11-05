@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приклад 1</title>
+    <script>
+        line(100, 100, 400, 400, 3);
+        line(100, 400, 400, 100, 10);
+        function line(x1, y1, x2, y2, n) {
+            var xstr = "";
+            var xstr0 = '<IMG SRC="image\\1.jpg" WIDTH=' + n + ' HEIGHT=' + n +
+                ' STYLE="position:absolute;';
+            var k = (y2 - y1) / (x2 - x1);
+            x = x1;
+            while (x <= x2) {
+                xstr += xstr0 + 'top:' + (k * (x - x1) + y1) + ';left:' + x + '">';
+                x++;
+            }
+            document.write(xstr);
+        }
+    </script>
+</head>
+
+<body>
+    <div style="font-size:20pt;padding-left:50">
+        <B>Рисование прямых линий</b>
+    </div>
+    <DIV id="dd" STYLE="position:absolute;top:250;left:100;
+        width:300;height:1;">
+        <hr noshade>
+    </div>
+    <div ID="kv" STYLE="position:absolute;top:100;left:250;
+        width:1;HEIGHT:300;background-color:#ff0099"></div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 1</title>
+</head>
+<script>
+    var photo = new Array();
+    photo["Говерла"] = new Image(100, 100);
+    photo["Говерла"].src = "image\\1.jpg";
+    photo["Дендропарк «Софіївка», Умань"] = new Image(1900, 900);
+    photo["Дендропарк «Софіївка», Умань"].src = "image\\2.jpeg"
+    photo["Шацькі озера"] = new Image(1900, 900);
+    photo["Шацькі озера"].src = "image\\3.jpg"
+    photo["«Український Версаль», Батурин"] = new Image(1900, 900);
+    photo["«Український Версаль», Батурин"].src = "image\\4.jpg"
+    photo["Підгорецький замок"] = new Image(1900, 900);
+    photo["Підгорецький замок"].src = "image\\5.jpg";
+    photo["Актовський каньйон"] = new Image(1900, 900);
+    photo["Актовський каньйон"].src = "image\\6.jpg";
+    photo["Лемурійське озеро"] = new Image(1900, 900);
+    photo["Лемурійське озеро"].src = "image\\7.jpg";
+    photo["Олешківські піски"] = new Image(1900, 900);
+    photo["Олешківські піски"].src = "image\\8.jpeg";
+    photo["Українська Венеція, Вилкове"] = new Image(1900, 900);
+    photo["Українська Венеція, Вилкове"].src = "image\\9.jpg";
+    photo["Печера Оптимістична"] = new Image(1900, 900);
+    photo["Печера Оптимістична"].src = "image\\10.png";
+
+    function selectImage(select) {
+        ind = select.options[select.selectedIndex].value;
+        document.images[0].src = photo[ind].src;
+        // console.log(photo[ind].src);
+    }
+
+</script>
+
+<body>
+    <div align="center">
+        Виберіть місце:
+        <select name="place" onchange="selectImage(this)" id="select1">
+            <option value="Говерла">Говерла</option>
+            <option value="Дендропарк «Софіївка», Умань">Дендропарк «Софіївка», Умань</option>
+            <option value="Шацькі озера">Шацькі озера</option>
+            <option value="«Український Версаль», Батурин">«Український Версаль», Батурин</option>
+            <option value="Підгорецький замок">Підгорецький замок</option>
+            <option value="Актовський каньйон">Актовський каньйон</option>
+            <option value="Лемурійське озеро">Лемурійське озеро</option>
+            <option value="Олешківські піски">Олешківські піски</option>
+            <option value="Українська Венеція, Вилкове">Українська Венеція, Вилкове</option>
+            <option value="Печера Оптимістична">Печера Оптимістична</option>
+        </select>
+        <br>
+        <img src="" alt="image" id="mainImg">
+        <script>
+
+            document.images[0].src = photo["Говерла"].src;
+        </script>
+    </div>
+</body>
+
+</html>
