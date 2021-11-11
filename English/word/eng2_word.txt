@@ -28,8 +28,8 @@ step-mother - мачуха
 step-father - вітчим
 step-sisters - зведена сестра
 step-brothers - зведений брат
-half-brothers 
-half-sisters
+half-brothers - звыдны брати
+half-sisters - звыдны сестри
 foster-parents (foster-mother/fosterfather)
 foster-child (foster-son/foster-daughter)
 blood relative - кровний родич
