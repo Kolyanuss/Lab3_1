@@ -21,7 +21,13 @@ namespace CSharpClassLibrary
         [CommandMethod("TestCom")]
         public void MyCommand()
         {
-            MessageBox.Show("RUN TestCommand!");
+            FormLab1 x1 = new FormLab1();
+            x1.Show();
+        }
+
+        public void Rezult(string text)
+        {
+            MessageBox.Show(text);
         }
     }
 }
