@@ -18,16 +18,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class tests {
-    int currentQuestions = 0;
-    int currentAnswer = 0;
-    int totalScore = 0;
+    private int currentQuestions;
+    private int currentAnswer = -1;
+    private int totalScore = 0;
 
-    ArrayList<String> questions;
-    ArrayList<Integer> answersToQuestions;
-    ArrayList<Integer> complitedQuestions;
-    Map<Integer, ArrayList<String>> answerList;
+    private ArrayList<String> questions;
+    private ArrayList<Integer> answersToQuestions;
+    private ArrayList<Integer> complitedQuestions;
+    private Map<Integer, ArrayList<String>> answerList;
+
+    private JFrame frame;
+    private JPanel panel;
+    private JPanel panel2;
+    private JLabel lableQuestions;
+    private ButtonGroup group;
+    private JRadioButton aRadioButton;
+    private JRadioButton bRadioButton;
+    private JRadioButton cRadioButton;
+    private JRadioButton dRadioButton;
+    private JButton buttonnext;
 
     public void initialize() {
+        //#region initialize my var
         questions = new ArrayList<String>() {
             {
                 add("Хто був першим президентом США?");
@@ -39,6 +51,7 @@ public class tests {
             }
         };
         answersToQuestions = new ArrayList<Integer>(Arrays.asList(1, 2, 0, 3, 0, 3));
+        complitedQuestions = new ArrayList<Integer>();
 
         answerList = new HashMap<Integer, ArrayList<String>>();
         answerList.put(0, new ArrayList<String>() {
@@ -89,19 +102,23 @@ public class tests {
                 add("7");
             }
         });
+        //#endregion
 
-        JFrame frame = new JFrame("Grouping Example");
+        // #region initialize swing element
+        frame = new JFrame("Grouping Example");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel(new GridLayout(0, 1));
-        JPanel panel2 = new JPanel();
-        JLabel lableQuestions = new JLabel("Як справи?");
-        ButtonGroup group = new ButtonGroup();
-        JRadioButton aRadioButton = new JRadioButton("A");
-        JRadioButton bRadioButton = new JRadioButton("Б");
-        JRadioButton cRadioButton = new JRadioButton("B");
-        JRadioButton dRadioButton = new JRadioButton("Г");
-        JButton buttonnext = new JButton("Далі");
+        panel = new JPanel(new GridLayout(0, 1));
+        panel2 = new JPanel();
+        lableQuestions = new JLabel("Як справи?");
+        group = new ButtonGroup();
+        aRadioButton = new JRadioButton("A");
+        bRadioButton = new JRadioButton("Б");
+        cRadioButton = new JRadioButton("B");
+        dRadioButton = new JRadioButton("Г");
+        buttonnext = new JButton("Далі");
+        // #endregion
 
+        // #region swind add\set element
         panel.add(lableQuestions);
         panel.add(aRadioButton);
         group.add(aRadioButton);
@@ -138,33 +155,48 @@ public class tests {
                 BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)));
         frame.add(panel, BorderLayout.CENTER);
         frame.add(panel2, BorderLayout.PAGE_END);
+        // #endregion
+
         frame.setSize(300, 200);
+        frame.setResizable(false);
+        takeRandomQuestions();
         frame.setVisible(true);
     }
 
-    public void findIdAnswer(ActionEvent actionEvent) {
+    protected void findIdAnswer(ActionEvent actionEvent) {
         AbstractButton aButton = (AbstractButton) actionEvent.getSource();
         System.out.println("Selected: " + aButton.getText());
 
-        for (int i = 0; i < questions.size(); i++) {
+        for (int i = 0; i < answerList.get(currentQuestions).size(); i++) {
             if (answerList.get(currentQuestions).get(i) == aButton.getText()) {
                 currentAnswer = i;
+                break;
             }
         }
     }
 
-    public void buttonNext() {
+    protected void buttonNext() {
         if (answersToQuestions.get(currentQuestions) == currentAnswer) {
             totalScore += 5;
+        } else
+            totalScore += 2;
+        complitedQuestions.add(currentQuestions);
+        group.clearSelection();
+        
+        currentAnswer = -1;
+        if (takeRandomQuestions()) {
+            buttonnext.setEnabled(false);
+            lableQuestions.setText("Вітаю, ваша оцінка: " + (totalScore / 6));
+            aRadioButton.setVisible(false);
+            bRadioButton.setVisible(false);
+            cRadioButton.setVisible(false);
+            dRadioButton.setVisible(false);
         }
-
-        takeRandomQuestions();
-
     }
 
-    public void takeRandomQuestions() {
+    protected boolean takeRandomQuestions() {
         if (complitedQuestions.size() >= 6) {
-            return;
+            return true;
         }
 
         int idQuest = (int) Math.random() * 6;
@@ -173,6 +205,7 @@ public class tests {
         for (int i = 0; i < complitedQuestions.size(); i++) {
             if (idQuest == complitedQuestions.get(i)) {
                 isDone = true;
+                break;
             }
         }
         int i = 0;
@@ -180,14 +213,29 @@ public class tests {
             if (++idQuest > 5) {
                 idQuest = 0;
             }
+            isDone = false;
+            for (int j = 0; j < complitedQuestions.size(); j++) {
+                if (idQuest == complitedQuestions.get(j)) {
+                    isDone = true;
+                    break;
+                }
+            }
             i++;
         }
+        currentQuestions = idQuest;
 
-        // добавити: підгрузка запитань за idQuest
+        // підгрузка запитань за idQuest
+        lableQuestions.setText(questions.get(currentQuestions));
 
+        aRadioButton.setText(answerList.get(currentQuestions).get(0));
+        bRadioButton.setText(answerList.get(currentQuestions).get(1));
+        cRadioButton.setText(answerList.get(currentQuestions).get(2));
+        dRadioButton.setText(answerList.get(currentQuestions).get(3));
+
+        return false;
     }
 
     public static void main(String args[]) {
-        new tests();
+        new tests().initialize();
     }
 }
