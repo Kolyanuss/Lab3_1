@@ -30,12 +30,6 @@ namespace CSharpClassLibrary
             this.class1 = class1;
         }
 
-        public KeyValuePair<float, float> getDot()
-        {
-            hasDot = false;
-            return new KeyValuePair<float, float>(dotx, doty);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             dotx = float.Parse(this.textBox1.Text);
