@@ -10,32 +10,43 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CSharpClassLibrary
+namespace CSharpClassLibrary2
 {
     public partial class FormLab1 : Form
     {
-        /*private int squareWidth { get; set; }
+        private int squareWidth { get; set; }
         private int squareHight { get; set; }
         private int upperWidthSlot { get; set; }
         private int lowerWidthSlot { get; set; }
         private int roundingRadiusSlot { get; set; }
         private int hightSlot { get; set; }
         private int hightToCenterCircle { get; set; }
-        private int circleDiameter { get; set; }*/
+        private int circleDiameter { get; set; }
 
-        public bool hasInfo { get; set; }
         private Class1 class1 { get; set; }
 
         public FormLab1()
         {
             InitializeComponent();
-            hasInfo = false;
+            myValInitialize();
         }
         public FormLab1(Class1 class1)
         {
             InitializeComponent();
-            hasInfo = false;
+            myValInitialize();
             this.class1 = class1;
+        }
+
+        private void myValInitialize()
+        {
+            squareWidth = 72;
+            squareHight = 60;
+            upperWidthSlot = 29;
+            lowerWidthSlot = 42;
+            roundingRadiusSlot = 9;
+            hightSlot = 17;
+            hightToCenterCircle = 17;
+            circleDiameter = 20;
         }
 
 
@@ -51,17 +62,23 @@ namespace CSharpClassLibrary
             hightToCenterCircle = int.Parse(this.textBox7.Text);
             circleDiameter = int.Parse(this.textBox8.Text);*/
             #endregion
-            hasInfo = true;
-            class1.onButtonClick(new List<int> {
-            int.Parse(this.textBox1.Text),
-            int.Parse(this.textBox2.Text),
-            int.Parse(this.textBox3.Text),
-            int.Parse(this.textBox4.Text),
-            int.Parse(this.textBox5.Text),
-            int.Parse(this.textBox6.Text),
-            int.Parse(this.textBox7.Text),
-            int.Parse(this.textBox8.Text)
-        });
+            if (!checkBox1.Checked)
+            {
+                squareWidth = int.Parse(this.textBox1.Text);
+                squareHight = int.Parse(this.textBox2.Text);
+                upperWidthSlot = int.Parse(this.textBox3.Text);
+                lowerWidthSlot = int.Parse(this.textBox4.Text);
+                roundingRadiusSlot = int.Parse(this.textBox5.Text);
+                hightSlot = int.Parse(this.textBox6.Text);
+                hightToCenterCircle = int.Parse(this.textBox7.Text);
+                circleDiameter = int.Parse(this.textBox8.Text);
+            }
+
+            class1.onButtonClick(new List<int>
+            {
+                squareWidth, squareHight, upperWidthSlot, lowerWidthSlot,
+                roundingRadiusSlot, hightSlot, hightToCenterCircle, circleDiameter,
+            });
         }
     }
 }
