@@ -62,7 +62,18 @@ namespace CSharpClassLibrary2
             hightToCenterCircle = int.Parse(this.textBox7.Text);
             circleDiameter = int.Parse(this.textBox8.Text);*/
             #endregion
-            if (!checkBox1.Checked)
+            if (checkBox1.Checked)
+            {
+                this.textBox1.Text = squareWidth.ToString();
+                this.textBox2.Text = squareHight.ToString();
+                this.textBox3.Text = upperWidthSlot.ToString();
+                this.textBox4.Text = lowerWidthSlot.ToString();
+                this.textBox5.Text = roundingRadiusSlot.ToString();
+                this.textBox6.Text = hightSlot.ToString();
+                this.textBox7.Text = hightToCenterCircle.ToString();
+                this.textBox8.Text = circleDiameter.ToString();
+            }
+            else
             {
                 squareWidth = int.Parse(this.textBox1.Text);
                 squareHight = int.Parse(this.textBox2.Text);
@@ -79,6 +90,26 @@ namespace CSharpClassLibrary2
                 squareWidth, squareHight, upperWidthSlot, lowerWidthSlot,
                 roundingRadiusSlot, hightSlot, hightToCenterCircle, circleDiameter,
             });
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int whatDraw = 0;
+            if (checkBox2.Checked && checkBox3.Checked)
+            {
+                whatDraw = 3;
+            }
+            else if (checkBox2.Checked)
+            {
+                whatDraw = 1;
+            }
+            else if (checkBox3.Checked)
+            {
+                whatDraw = 2;
+            }
+
+            class1.onButtonEditClick(whatDraw, textBox9.Text, comboBox1.Text, textBox10.Text, comboBox2.Text);
         }
     }
 }

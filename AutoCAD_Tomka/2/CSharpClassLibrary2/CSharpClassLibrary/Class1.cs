@@ -12,6 +12,7 @@ namespace CSharpClassLibrary2
 {
     public class Class1
     {
+        #region param
         private FormLab1 myForm;
         private int squareWidth { get; set; }
         private int squareHight { get; set; }
@@ -21,6 +22,9 @@ namespace CSharpClassLibrary2
         private int hightSlot { get; set; }
         private int hightToCenterCircle { get; set; }
         private int circleDiameter { get; set; }
+
+        private int drawState;
+        #endregion
 
         #region construct and destruct
         // функция инициализации (выполняется при загрузке плагина)
@@ -36,45 +40,6 @@ namespace CSharpClassLibrary2
         }
 
         #endregion
-
-        /*[CommandMethod("Test", CommandFlags.Modal)]
-        public void Test()
-        {
-            Document doc = acad.DocumentManager.MdiActiveDocument;
-            Database db = doc.Database;
-            Editor ed = doc.Editor;
-
-            PromptDistanceOptions pdo = new PromptDistanceOptions("\nFillet radius: ");
-            pdo.AllowZero = false;
-            pdo.AllowNegative = false;
-            PromptDoubleResult pdr = ed.GetDistance(pdo);
-            if (pdr.Status != PromptStatus.OK)
-                return;
-
-            double radius = pdr.Value;
-            PromptEntityOptions peo = new PromptEntityOptions("\nSelect a polyline: ");
-            peo.SetRejectMessage("Not a polyline.");
-            peo.AddAllowedClass(typeof(Polyline), true);
-            PromptEntityResult per = ed.GetEntity(peo);
-            if (per.Status != PromptStatus.OK)
-                return;
-
-            using (Transaction tr = db.TransactionManager.StartTransaction())
-            {
-                Polyline pline = (Polyline)tr.GetObject(per.ObjectId, OpenMode.ForWrite);
-                FilletAll(pline, radius);
-                tr.Commit();
-            }
-        }
-
-        private void FilletAll(Polyline pline, double radius)
-        {
-            int n = pline.Closed ? 1 : 2;
-            for (int i = 0; i < pline.NumberOfVertices - n; i++)
-                i += Fillet(pline, radius, i, i + 1);
-            if (pline.Closed)
-                Fillet(pline, radius, pline.NumberOfVertices - 1, 0);
-        }*/
 
         [CommandMethod("LabTwo")]
         public void MyCommand()
@@ -94,11 +59,15 @@ namespace CSharpClassLibrary2
             hightToCenterCircle = list[6];
             circleDiameter = list[7];
 
-            Draw();
+            DrawKres();
+            DrawSizes();
+            drawState = 3; // 3 - all layer draw
         }
 
-        public void Draw()
+        #region draw func
+        private void DrawKres()
         {
+            delLayer("LayerKreslennya");
             DocumentCollection acDocMgr = acad.DocumentManager;
             Document acDoc = acad.DocumentManager.MdiActiveDocument;
             Database acCurDb = acDoc.Database;
@@ -107,6 +76,14 @@ namespace CSharpClassLibrary2
             {
                 using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
+                    #region create Kres layer
+                    // открываем таблицу слоев документа
+                    LayerTable acLyrTbl = acTrans.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+
+                    createLayer("LayerKreslennya", acTrans, acLyrTbl, acCurDb);
+                    #endregion
+
+                    #region var for draw
                     // открываем таблицу блоков документа
                     BlockTable acBlkTbl;
                     acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead) as BlockTable;
@@ -114,6 +91,7 @@ namespace CSharpClassLibrary2
                     // открываем пространство модели (Model Space) - оно является одной из записей в таблице блоков документа
                     BlockTableRecord acBlkTblRec;
                     acBlkTblRec = acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+                    #endregion
 
                     #region Polyline
                     // создаем полилинию
@@ -169,6 +147,309 @@ namespace CSharpClassLibrary2
             acDocMgr.MdiActiveDocument = acDoc;
         }
 
+        private void DrawSizes()
+        {
+            delLayer("LayerSizes");
+            DocumentCollection acDocMgr = acad.DocumentManager;
+            Document acDoc = acad.DocumentManager.MdiActiveDocument;
+            Database acCurDb = acDoc.Database;
+
+            using (DocumentLock acLckDoc = acDoc.LockDocument())
+            {
+                using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
+                {
+                    #region create Sizes layer
+                    // открываем таблицу слоев документа
+                    LayerTable acLyrTbl = acTrans.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+
+                    createLayer("LayerSizes", acTrans, acLyrTbl, acCurDb);
+                    #endregion
+
+                    #region var for draw
+                    // открываем таблицу блоков документа
+                    BlockTable acBlkTbl;
+                    acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId, OpenMode.ForRead) as BlockTable;
+
+                    // открываем пространство модели (Model Space) - оно является одной из записей в таблице блоков документа
+                    BlockTableRecord acBlkTblRec;
+                    acBlkTblRec = acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+                    #endregion
+
+                    #region draw sizes
+
+                    #endregion
+
+                    // фиксируем изменения
+                    acTrans.Commit();
+                }
+            }
+            // Set the new document current
+            acDocMgr.MdiActiveDocument = acDoc;
+        }
+        #endregion
+
+        public void onButtonEditClick(int whatDraw, string lineThicknessLayer1, string lineColorLayer1, string lineThicknessLayer2, string lineColorLayer2)
+        {
+            checkLayer(whatDraw);
+
+            #region init var for tranzaction
+            // получаем текущий документ и его БД
+            Document acDoc = acad.DocumentManager.MdiActiveDocument;
+            Database acCurDb = acDoc.Database;
+            Editor ed = acDoc.Editor;
+
+            PromptSelectionResult selRes = ed.SelectAll();
+
+            // если произошла ошибка - сообщаем о ней
+            if (selRes.Status != PromptStatus.OK)
+            {
+                ed.WriteMessage("\nError!\n");
+                return;
+            }
+
+            // получаем массив ID объектов
+            ObjectId[] ids = selRes.Value.GetObjectIds();
+
+            // блокируем документ
+            using (DocumentLock docloc = acDoc.LockDocument())
+            {
+                // начинаем транзакцию
+                using (Transaction tr = acCurDb.TransactionManager.StartTransaction())
+                {
+                    LayerTable acLyrTbl = tr.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+                    #endregion
+
+                    #region edit object
+                    #region layer 1 (kreslenya)
+                    acCurDb.Clayer = acLyrTbl["LayerKreslennya"];
+                    if (lineThicknessLayer1.Length > 0)
+                    {
+                        foreach (ObjectId id in ids)
+                        {
+                            // приводим каждый из них к типу Entity
+                            Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
+
+                            // открываем объект на запись
+                            entity.UpgradeOpen();
+
+                            // изменяем цвет
+                            entity.LinetypeScale = double.Parse(lineThicknessLayer1); // чого не міняється розмір лінії
+                        }
+                    }
+                    if (lineColorLayer1.Length > 0)
+                    {
+                        PrintMsg(lineColorLayer1);
+                        // "пробегаем" по всем полученным объектам
+                        foreach (ObjectId id in ids)
+                        {
+                            // приводим каждый из них к типу Entity
+                            Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
+
+                            // открываем объект на запись
+                            entity.UpgradeOpen();
+
+                            // изменяем цвет
+                            //entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 128, 0);
+                            entity.Color = Autodesk.AutoCAD.Colors.Color. FromNames(lineColorLayer1, lineColorLayer1); // добавити вибір кольору
+                        }
+                    }
+                    acCurDb.Clayer = acLyrTbl["LayerSizes"];
+                    #endregion
+                    #region layer 2 (sizes)
+                    #endregion
+                    #endregion
+
+                    #region finish tranzaction
+                    // фиксируем транзакцию
+                    tr.Commit();
+                }
+            }
+            #endregion
+        }
+
+        #region other func
+
+        private void createLayer(string currentLayer, Transaction tr, LayerTable acLyrTbl, Database acCurDb)
+        {
+            try
+            {
+                // создаем новый слой и задаем ему имя
+                LayerTableRecord acLyrTblRec = new LayerTableRecord();
+                acLyrTblRec.Name = currentLayer;
+
+                // заносим созданный слой в таблицу слоев
+                acLyrTbl.Add(acLyrTblRec);
+
+                // добавляем созданный слой в документ
+                tr.AddNewlyCreatedDBObject(acLyrTblRec, true);
+
+                acCurDb.Clayer = acLyrTbl[currentLayer];
+            }
+            catch (Autodesk.AutoCAD.Runtime.Exception Ex)
+            {
+                PrintMsg("Не можу створити шар " + currentLayer);
+                acad.ShowAlertDialog("Ошибка:\n" + Ex.Message);
+            }
+        }
+
+        private void delLayer(string layer)
+        {
+            // получаем текущий документ и его БД
+            Document acDoc = acad.DocumentManager.MdiActiveDocument;
+            Database acCurDb = acDoc.Database;
+
+            // блокируем документ
+            using (DocumentLock docloc = acDoc.LockDocument())
+            {
+                // начинаем транзакцию
+                using (Transaction tr = acCurDb.TransactionManager.StartTransaction())
+                {
+                    // открываем таблицу слоев документа
+                    LayerTable acLyrTbl = tr.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+
+                    // если в таблице слоев нет нашего слоя - прекращаем выполнение команды
+                    if (acLyrTbl.Has(layer) == false)
+                    {
+                        return;
+                    }
+
+                    // устанавливаем нулевой слой в качестве текущего
+                    acCurDb.Clayer = acLyrTbl["0"];
+
+                    #region del all entity
+                    // прокачати провірку: чи є обєкти на слою, якщо є - видалити
+
+                    Editor ed = acDoc.Editor;
+
+                    PromptSelectionResult selRes = ed.SelectAll();
+
+                    // если произошла ошибка - сообщаем о ней
+                    if (selRes.Status != PromptStatus.OK)
+                    {
+                        ed.WriteMessage("\nError!\n");
+                        return;
+                    }
+
+                    // получаем массив ID объектов
+                    ObjectId[] ids = selRes.Value.GetObjectIds();
+
+                    // "пробегаем" по всем полученным объектам
+                    foreach (ObjectId id in ids)
+                    {
+                        // приводим каждый из них к типу Entity
+                        Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
+
+                        try
+                        {
+                            // открываем приговоренный объект на запись
+                            entity.UpgradeOpen();
+
+                            // удаляем объект
+                            entity.Erase();
+                        }
+                        catch (Autodesk.AutoCAD.Runtime.Exception)
+                        {
+                            ed.WriteMessage("\nSomething went wrong...\n");
+                        }
+                    }
+
+                    #endregion
+
+                    // убеждаемся, что на удаляемый слой не ссылаются другие объекты
+                    ObjectIdCollection acObjIdColl = new ObjectIdCollection();
+                    acObjIdColl.Add(acLyrTbl[layer]);
+                    acCurDb.Purge(acObjIdColl);
+
+                    if (acObjIdColl.Count > 0)
+                    {
+                        // получаем запись слоя для изменения
+                        LayerTableRecord acLyrTblRec = tr.GetObject(acObjIdColl[0], OpenMode.ForWrite) as LayerTableRecord;
+
+                        try
+                        {
+                            // удаляем слой
+                            acLyrTblRec.Erase(true);
+                            // фиксируем транзакцию
+                            tr.Commit();
+                        }
+                        catch (Autodesk.AutoCAD.Runtime.Exception Ex)
+                        {
+                            PrintMsg("Не можу видалити шар " + layer);
+                            // если произошла ошибка - значит, слой удалить нельзя
+                            acad.ShowAlertDialog("Ошибка:\n" + Ex.Message);
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void checkLayer(int whatDraw)
+        {
+            if (drawState == whatDraw)
+            {
+                return;
+            }
+            #region init var for tranzaction
+            // получаем текущий документ и его БД
+            Document acDoc = acad.DocumentManager.MdiActiveDocument;
+            Database acCurDb = acDoc.Database;
+
+            // блокируем документ
+            using (DocumentLock docloc = acDoc.LockDocument())
+            {
+                // начинаем транзакцию
+                using (Transaction tr = acCurDb.TransactionManager.StartTransaction())
+                {
+                    // открываем таблицу слоев документа
+                    LayerTable acLyrTbl = tr.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
+                    #endregion
+
+                    switch (whatDraw)
+                    {
+                        case 0:
+                            onOrOffLayer("LayerKreslennya", false, acLyrTbl, tr);
+                            onOrOffLayer("LayerSizes", false, acLyrTbl, tr);
+                            break;
+                        case 1:
+                            onOrOffLayer("LayerKreslennya", true, acLyrTbl, tr);
+                            onOrOffLayer("LayerSizes", false, acLyrTbl, tr);
+                            break;
+                        case 2:
+                            onOrOffLayer("LayerKreslennya", false, acLyrTbl, tr);
+                            onOrOffLayer("LayerSizes", true, acLyrTbl, tr);
+                            break;
+                        case 3:
+                            onOrOffLayer("LayerKreslennya", true, acLyrTbl, tr);
+                            onOrOffLayer("LayerSizes", true, acLyrTbl, tr);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    #region finish tranzaction
+                    // фиксируем транзакцию
+                    tr.Commit();
+                }
+            }
+            #endregion
+            drawState = whatDraw;
+        }
+
+        private void onOrOffLayer(string nameLayer, bool state, LayerTable acLyrTbl, Transaction tr)
+        {
+            // если в таблице слоев нет нашего слоя - прекращаем выполнение команды
+            if (acLyrTbl.Has(nameLayer) == false)
+            {
+                return;
+            }
+            // получаем запись слоя для изменения
+            LayerTableRecord acLyrTblRec = tr.GetObject(acLyrTbl[nameLayer], OpenMode.ForWrite) as LayerTableRecord;
+            // скрываем и блокируем слой
+            acLyrTblRec.IsOff = !state;
+            //acLyrTblRec.IsLocked = !state;
+        }
+
         private int Fillet(Polyline pline, double radius, int index1, int index2)
         {
             if (pline.GetSegmentType(index1) != SegmentType.Line ||
@@ -201,5 +482,6 @@ namespace CSharpClassLibrary2
         {
             MessageBox.Show(text);
         }
+        #endregion
     }
 }
