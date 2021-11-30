@@ -32,7 +32,6 @@ namespace CSharpClassLibrary
         [CommandMethod("CalcDot")]
         public void MyCommand()
         {
-            //Drawpoint();
             this.myForm = new FormLab1(this);
             myForm.Show();
         }
