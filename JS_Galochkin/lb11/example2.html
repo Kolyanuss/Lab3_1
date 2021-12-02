@@ -1,0 +1,39 @@
+<HTML>
+
+<HEAD>
+    <TITLE> ПЕРЕМІЩЕННЯ зображення мишкою
+    </TITLE>
+</HEAD>
+
+<BODY id="body1" STYLE="font-size: 12pt">
+    <H2 align="center" style="color: #ff00ff">
+        Перетягування фотографії мишкою </h2>
+    <P align="center">
+        Фотографія починає рухатися при попаданні на неї курсора мишки <BR> При захопленні і переміщенні фотографії не
+        натискайте кнопки мишки. <BR> Для припинення руху клацніть лівою кнопкою мишки </p>
+    <P align=right> Примітка. Сторінка правильно відображається тольков браузері <i> InternetExplorer 6.0 </i> </p> <img
+        id="IM1" src="LV.jpg" STYLE="position: absolute; top: 200; left: 10 ">
+</BODY>
+
+<SCRIPT> flag = false // заборона на переміщення
+    // Функція запускається пріпересеченіі
+    // курсором мишки над ділянкою
+    function IM1.onmouseover()
+    { Flag = true }
+    // Перетягування дозволено //
+    function IM1.onmousemove()
+    {
+        If(flag)
+        {// пересчёткоордінатізображенія
+            document.all.IM1.style.top = event.clientY - 170
+            document.all.IM1.style.left = event.clientX - 120
+        }
+    } // заборона на переміщення. Запускається при відпуску кнопки мишки
+    function IM1.onclick()
+    { Flag = false }
+</SCRIPT>
+
+<SCRIPT language=" JavaScript" src="ProvBrows.js">
+</Script>
+
+</HTML>

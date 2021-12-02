@@ -1,0 +1,43 @@
+<Html>
+
+<HEAD>
+    <TITLE> Скіпт SELECT </title>
+</head>
+
+<Body>
+    <!-- Приклад вибору і виводана екранелемента списку Select -->
+    <SCRIPT>
+        function select_() {
+            a = document.all.Kod.value //код кольору
+            b = document.all.Gor.selectedIndex
+            //номервибранного елемента //спіскаselect
+            c = document.all.Gor.options[b].text //текст елементаспіска
+            d = document.all.Gor.options[b].value //передане з форми
+            //значення <option value = red>
+            e = "<FONT size = 7 color =" + a + ">" + a + "</font>" //трансляція і
+            document.all.alfa.innerHTML = e //висновок на екран HTML-рядки
+            e = "<FONT size = 7 color =" + d + ">" + c + "</font>"
+            document.all.beta.innerHTML = e
+        }
+    </Script>
+    <H2> Підбір відтінків кольору </h2>
+    У першому полі потрібно ввести шістнадцятковий код кольору. <BR>
+    Наприклад, червоний колір має код FF0000.
+    <BR> Зі списку в другому полі вибирається для порівняння
+    <BR> один з основних кольорів (червоний, зелений, синій)
+    <P> Введіть код кольору
+        <Input TYPE="text" name="Kod">
+    <P> Виберіть колір
+        <SELECT NAME="Gor">
+            <Option value="red"> Червоний </option>
+            <Option value="yellow"> Жовтий </option>
+            <Option value="maroon"> каштановий </option>
+            <Option value="green"> Зелений </option>
+            <Option value="blue"> Cиний
+        </Select>
+    <P> <BUTTON onclick="select_()"> Виконати </button>
+    <P> <B ID="alfa"> </b>
+        <br> <B ID="beta"> </b>
+</Body>
+
+</Html>

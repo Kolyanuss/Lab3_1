@@ -1,0 +1,44 @@
+<Html>
+
+<Head>
+    <title> Перетягування </title>
+</head>
+
+<Body onload="init()">
+    <H2 align="center" style="color: #ff00ff">
+        Перетасківаніеквадрата мишкою </h2>
+    <h3 align="center">
+        Встановіть курсор всередині красногоквадрата, натисніть ліву кнопку
+        мишки і тягніть квадрат. <BR> Для звільнення квадрата
+        від захоплення відпустіть мишку </h3>
+    <P align=right> Примітка. сторінка правильно
+        відображається в браузерах <i> Mozilla Firefox 2.0 </i>
+        і <i> Internet Explorer 6.0 </i>
+    </p>
+    <DIV id='kv' style="Position: absolute; left: 10; top: 200; width: 50; height: 50; background-color: red">
+    </Div>
+</Body>
+<SCRIPT>
+    flag = false; // Зв'язування подій з функціями
+    function init() {// Якщо мишка рухається то виконується ф-ція dragIt
+        document.all.kv.onmousemove = dragIt
+        // Якщо кнопка мишки відпускається, то - ф-ція osvobodi
+        document.all.kv.onmouseup = osvobodi
+        document.all.kv.onmousedown = zachvat
+    }
+    function dragIt(evt) { //Параметр evt створюється самим браузером
+        sobytie = (evt) ? evt : (window.event) ? window.event : "";
+        if (flag) {
+            document.all.kv.style.top = sobytie.clientY - 25;
+            document.all.kv.style.left = sobytie.clientX - 25;
+        }
+    }
+    function osvobodi() {
+        flag = false; // встановлюється заборона на перетягування
+    }
+    function zachvat() {
+        flag = true; // Перетягування дозволяється
+    }
+</SCRIPT>
+
+</Html>

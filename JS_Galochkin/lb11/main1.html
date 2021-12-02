@@ -1,0 +1,43 @@
+<HTML>
+
+<HEAD>
+    <TITLE> Рух фотографії </TITLE>
+</HEAD>
+
+<BODY>
+    <BUTTON ID="B1" onclick=Start_stop() 
+    STYLE="position: absolute; left: 300; top: 5">
+        Запустити </button>
+    <IMG ID="lv" src="LV.jpg" 
+    STYLE="position: absolute; top: 100; left: 100">
+</BODY>
+<SCRIPT>
+    var t = 0;
+    var R = 100;
+    st = false // зупинити процес
+    function Start_stop() {
+        if (st) {
+            st = false;
+            document.all.B1.innerHTML = "Старт";
+            window.clearInterval(Proc); // зупинитися
+        }
+        else // рухатися (запустити процес з ім'ям proc)
+        {
+            Proc = window.setInterval("move()", 100)
+            st = true
+            document.all.B1.innerHTML = "Стоп"
+        }
+    }
+    function move() {
+        dx = R * Math.cos(t);
+        dy = R * Math.sin(t);
+        t+=0.1;
+
+        var y = parseInt(document.all.lv.style.top);
+        var x = parseInt(document.all.lv.style.left);
+        document.all.lv.style.top = R + dy; // Переміщення по OY
+        document.all.lv.style.left = R + dx; // Переміщення по OX
+    }
+</Script>
+
+</HTML>

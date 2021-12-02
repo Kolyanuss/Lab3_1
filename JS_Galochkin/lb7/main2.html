@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h2 id="byid1" onclick=f1(flag1)>Доступ до властивостей і методів</h2>
+    <p name="byall" onclick=f2()>Колекція all</p>
+    <div id="byid2" onclick=f1(flag3)>Метод getElementById()</div>
+</body>
+<script>
+    flag1 = {
+        status: true,
+        id: "byid1"
+    };
+    flag2 = true;
+    flag3 = {
+        status: true,
+        id: "byid2"
+    };
+    function f1(flag) {
+        if (flag.status) {
+            flag.status = false;
+            document.getElementById(flag.id).style.background = 'yellow';
+            document.getElementById(flag.id).style.color = 'black';
+        }
+        else {
+            flag.status = true;
+            document.getElementById(flag.id).style.background = 'blue';
+            document.getElementById(flag.id).style.color = 'white';
+        }
+    }
+
+    function f2() {
+        if (flag2) {
+            flag2 = false;
+            document.all.byall.background = 'white';
+            document.all.byall.color = 'red';
+            console.log("do false");
+        }
+        else {
+            flag2 = true;
+            document.all.byall.style.background = 'green';
+            document.all.byall.style.color = 'white';
+            console.log("do true");
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,104 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завдання 2</title>
+    <style>
+        html,
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .menu {
+            display: flex;
+            max-width: 100%;
+            height: auto
+        }
+
+        .frame {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+        }
+    </style>
+</head>
+<script>
+    function draw() {
+        var a = document.all.inp1.value;
+        var b = document.all.inp2.value;
+        drawsvg(a, b);
+        drawcanvas(a, b);
+        drawdiv(a, b);
+    }
+    function drawsvg(a, b) {
+        var svgcontent = `<svg height="${b * 2 + 5}" width="${a * 2 + 5}">
+                <ellipse cx="${2 + parseInt(a)}" cy="${2 + parseInt(b)}" rx="${a}" ry="${b}" style="fill:yellow;stroke:purple;stroke-width:2" />
+            </svg>`;
+        document.all.Elsvg.innerHTML = svgcontent;
+    }
+    function drawdiv(a, b) {
+        var x = 0;
+        var x2 = 2 * Math.PI;
+        var n = 2;
+
+        var xstr = "";
+        var wraper1 = `<div class="frame" style="height:${b * 2 + 5}; width:${a * 2 + 5};position: relative;">`
+        var xstr0 = `<div style="position:absolute; height:${n}; width:${n}; background-color: black;`;
+
+        while (x <= x2) {
+            var k = a * Math.cos(x);
+            var z = b * Math.sin(x);
+            xstr += xstr0 + 'top:' + (b * 1.0 + z) + ';left:' + (a * 1.0 + k) + '"></div>';
+            x += 0.01;
+        }
+        var wraper2 = "</div>";
+        // alert(document.getElementById("secondmainframe").style.maxWidth);
+        document.all.Eldiv.innerHTML = wraper1 + xstr + wraper2;
+
+    }
+    function drawcanvas(a, b) {
+        var canvascontent = `<canvas id="canvas" width="${a * 2 + 5}" height="${b * 2 + 5}"></canvas>`;
+
+        document.all.Elcanvas.innerHTML = canvascontent;
+
+        const canvas = document.getElementById('canvas');
+        // const canvas = document.all.Elcanvas.canvas;
+        const ctx = canvas.getContext('2d');
+
+        ctx.beginPath();
+        ctx.ellipse(2 + parseInt(a), 2 + parseInt(b), a, b, 0, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+</script>
+
+<body>
+    <h1 align="center">Побудова Еліпса</h1>
+    <div class="menu">
+        <div class="frame">
+            Задайте довжину півосей
+            <br><br>
+            Горизонтальна a =
+            <input id="inp1" type="number">
+            <br><br>
+            Вертикальна b =
+            <input id="inp2" type="number">
+            <br><br>
+            <button onclick="draw()">Побудувати</button>
+        </div>
+
+        <div id="secondmainframe" class="frame" style="background-color: yellow; width: 80%; margin-right: 50px;">
+            <div class="menu">
+                <div class="frame" id="Elsvg"></div>
+                <div class="frame" id="Eldiv" style="position: relative;"></div>
+                <div class="frame" id="Elcanvas"></div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

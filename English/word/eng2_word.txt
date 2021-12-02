@@ -1,0 +1,42 @@
+siblings - брати і сестри
+immediate - негайний
+
+niece - племінниця
+nephew - племінник
+
+in-laws - (сім'я партнера)
+spouse - дружина
+mother-in-law
+father-in-law
+brother-in-law
+sister-in-law
+daughter-in-law
+son-in-law
+
+granddaughter - внучка
+grandson   - внук
+great-aunt - пра-тітка
+great-uncle - пра-дядько
+great-niece 
+great-nephew
+greatgrandmother
+great-grandfather
+great-great-grandfather
+great-great-grandmother
+
+step-mother - мачуха
+step-father - вітчим
+step-sisters - зведена сестра
+step-brothers - зведений брат
+half-brothers - звыдны брати
+half-sisters - звыдны сестри
+foster-parents (foster-mother/fosterfather)
+foster-child (foster-son/foster-daughter)
+blood relative - кровний родич
+nuclear family - 
+single-parent - єдиний батько
+one-parent family - неповна сім'я
+kin              - родич
+extended family - розширена родина
+close-knit family - дружна сім'я
+dysfunctional family

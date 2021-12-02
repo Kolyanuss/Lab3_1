@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>main2</title>
+</head>
+<script>
+    function degToRad(degrees) {
+        var pi = Math.PI;
+        return degrees * (pi / 180);
+    }
+
+    function calc() {
+
+        num = parseInt(document.all.angleInputId.value); // введене значення
+        if (!Number.isInteger(num)) // умови перевірки
+        {
+            alert("Помилка!!! Значення не є числом");
+            fld.focus();
+            fld.select();
+            return;
+        } else if (num <= 0 || num >= 90) {
+            alert("Помилка!!! Значення кута повинно бути більше 0 і менше 90 градусів");
+            return;
+        }
+
+        rad = degToRad(num);
+        val = parseInt(document.all.select1Id.options[document.all.select1Id.selectedIndex].value);
+        rezText = "";
+        rez = 0.0;
+        switch (val) {
+            case 1:
+                rez = Math.cos(rad);
+                rezText = "cos";
+                break;
+            case 2:
+                rez = Math.sin(rad);
+                rezText = "sin";
+                break;
+            case 3:
+                rez = Math.tan(rad);
+                rezText = "tan";
+                break;
+        }
+
+        rezText += "(" + num + "°) = ";
+        document.all.rez.innerHTML = rezText + rez;
+    }
+</script>
+
+<body>
+    <h1>Тригонометричні функції</h1>
+    Кут повинен бути більше 0 і менше 90 градусів
+
+    <br><br>
+    Кут в градусах:
+    <input type="text" id="angleInputId" onchange="calc()">
+
+    <br><br>
+    Функція....
+    <select id="select1Id">
+        <option value="1">Косинус</option>
+        <option value="2">Синус</option>
+        <option value="3">Тангенс</option>
+    </select>
+
+    <br><br>
+    <button onclick="calc()">Порахувати</button>
+
+    <p id="rez"></p>
+</body>
+
+</html>

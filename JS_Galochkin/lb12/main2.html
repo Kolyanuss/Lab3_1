@@ -1,0 +1,114 @@
+<HTML>
+
+<HEAD>
+    <TITLE>
+    </TITLE>
+</HEAD>
+
+<BODY>
+    <H1 align=center> Товари </h1>
+
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+    <div align="center">
+        <table id="tab1">
+            <tr>
+                <td>Назва товару</td>
+                <td>Ціна за 1шт</td>
+                <td>Кількість</td>
+                <td>Вартість</td>
+            </tr>
+            <tr>
+                <td>Стіл письмовий</td>
+                <td>1200</td>
+                <td>5</td>
+                <td>60000</td>
+            </tr>
+            <tr>
+                <td>Стіл кухонний</td>
+                <td>8000</td>
+                <td>10</td>
+                <td>80000</td>
+            </tr>
+            <tr>
+                <td>Стілець</td>
+                <td>20</td>
+                <td>1200</td>
+                <td>12000</td>
+            </tr>
+            <tr>
+                <td>Шафа книжкова</td>
+                <td>14200</td>
+                <td>4</td>
+                <td>68800</td>
+            </tr>
+            <tr>
+                <td colspan="3">Разом</td>
+                <td>220800</td>
+            </tr>
+        </table>
+
+        <br><br>
+        Редагування
+        <br><br>
+        Товар.......
+        <select name="func" id="funcs">
+            <option value="1"> Стіл письмовий</option>
+            <option value="2"> Стіл кухонний</option>
+            <option value="3"> Стілець</option>
+            <option value="4"> Шафа книжкова</option>
+        </select>
+        <br>
+        Ціна........ <input id="inp1" type="number"> <br>
+        Кількість <input id="inp2" type="number"> <br><br>
+
+        <button onclick="gr()">редагувати</button>
+    </div>
+
+    <Script>
+
+        function gr() {
+            var select = document.getElementById('funcs');
+            var val = select.options[select.selectedIndex].value;
+
+            var prise = parseInt(document.getElementById('inp1').value);
+            var kst = parseInt(document.getElementById('inp2').value);
+            var Irow;
+            var myTab = document.getElementById('tab1');
+
+            for (let i = 0; i < 3; i++) {
+                switch (val) {
+                    case '1':
+                        Irow = myTab.rows[1];
+                        break;
+                    case '2':
+                        Irow = myTab.rows[2];
+                        break;
+                    case '3':
+                        Irow = myTab.rows[3];
+                        break;
+                    case '4':
+                        Irow = myTab.rows[4];
+                        break;
+                }
+                Irow.cells[1].innerHTML = prise;
+                Irow.cells[2].innerHTML = kst;
+                //calc
+                Irow.cells[3].innerHTML = prise * kst;
+            }
+
+            var allPrise = 0;
+            for (let i = 1; i < 5; i++) {
+                allPrise += parseInt(myTab.rows[i].cells[3].innerHTML);
+            }
+            myTab.rows[5].cells[1].innerHTML = allPrise;
+        }
+    </Script>
+</BODY>
+
+</HTML>

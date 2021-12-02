@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 2.1</title>
+</head>
+<script>
+    flag1 = true;
+    flag2 = true;
+    flag3 = true;
+    function func1() {
+        if (flag1) {
+            flag1 = false;
+            document.all.p1.style.fontSize = "48pt";
+            document.all.p1.style.color = "white";
+            document.all.p1.style.background = "blue";
+        } else {
+            flag1 = true;
+            document.all.p1.style.fontSize = "12pt";
+            document.all.p1.style.color = "black";
+            document.all.p1.style.background = "none";
+        }
+    }
+    function func2() {
+        if (flag2) {
+            flag2 = false;
+            document.all.p2.style.background = "green";
+
+        } else {
+            flag2 = true;
+            document.all.p2.style.background = "yellow";
+        }
+    }
+    function func3() {
+        if (flag3) {
+            flag3 = false;
+            document.all.p3.style.background = "red";
+
+        } else {
+            flag3 = true;
+            document.all.p3.style.background = "blue";
+        }
+    }
+</script>
+
+<body>
+    <h1> П'ять подій з мишкою </h1>
+    <p id="p1" onmousedown="func1()">
+        Клацніть на мене мишкою
+    </p>
+    <p id="p2" onclick="func2()">
+        На цьому тексті натисніть, потримайте і відпустіть ліву кнопку мишки
+    </p>
+    <p id="p3" onmouseenter="func3()" onmouseleave="func3()">
+        Повільно проведіть курсором мишки по цій написи
+    </p>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<Html>
+
+<Head>
+    <title> Перетягування </title>
+</head>
+
+<Body onload="init()">
+    <H2 align="center" style="color: #ff00ff">
+        Перетасківаніеквадрата мишкою </h2>
+    <h3 align="center">
+        Встановіть курсор всередині красногоквадрата, натисніть ліву кнопку
+        мишки і тягніть квадрат. <BR> Для звільнення квадрата
+        від захоплення відпустіть мишку </h3>
+    <P align=right> Примітка. сторінка правильно
+        відображається в браузерах <i> Mozilla Firefox 2.0 </i>
+        і <i> Internet Explorer 6.0 </i>
+    </p>
+    <div id='er' style="Position: absolute; left:700;top:200; width: 500; height: 500; background-color: gray">
+    </div>
+    <div id='kv' style="Position: absolute; left: 10; top: 10; width: 50; height: 50; background-color: red">
+    </div>
+</Body>
+<SCRIPT>
+    flag = false;
+    function init() {
+        document.all.kv.onmousemove = dragIt
+        document.all.kv.onmouseup = osvobodi
+        document.all.kv.onmousedown = zachvat
+    }
+    function dragIt(evt) {
+        sobytie = (evt) ? evt : (window.event) ? window.event : "";
+        if (flag) {
+            document.all.kv.style.top = sobytie.clientY - 25;
+
+            if (parseInt(document.all.kv.style.top) < parseInt(document.all.er.style.top)) {
+                document.all.kv.style.top = document.all.er.style.top;
+            }
+            var t = parseInt(document.all.kv.style.top) + parseInt(document.all.kv.style.height);
+            var ter = parseInt(document.all.er.style.top) + parseInt(document.all.er.style.height);
+            if (t > ter) {
+                document.all.kv.style.top = ter - parseInt(document.all.kv.style.height);
+            }
+
+            document.all.kv.style.left = sobytie.clientX - 25;
+
+            if (parseInt(document.all.kv.style.left) < parseInt(document.all.er.style.left)) {
+                document.all.kv.style.left = document.all.er.style.left;
+            }
+            var l = parseInt(document.all.kv.style.left) + parseInt(document.all.kv.style.width);
+            var ler = parseInt(document.all.er.style.left) + parseInt(document.all.er.style.width);
+            if (l > ler) {
+                document.all.kv.style.left = ler - parseInt(document.all.kv.style.width);
+            }
+        }
+    }
+    function osvobodi() {
+        flag = false; // встановлюється заборона на перетягування
+    }
+    function zachvat() {
+        flag = true; // Перетягування дозволяється
+    }
+</SCRIPT>
+
+</Html>
