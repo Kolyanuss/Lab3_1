@@ -85,6 +85,9 @@ namespace CSharpClassLibrary2
                 circleDiameter = int.Parse(this.textBox8.Text);
             }
 
+            checkBox2.Checked = true;
+            checkBox3.Checked = true;
+
             class1.onButtonClick(new List<int>
             {
                 squareWidth, squareHight, upperWidthSlot, lowerWidthSlot,
@@ -110,6 +113,24 @@ namespace CSharpClassLibrary2
             }
 
             class1.onButtonEditClick(whatDraw, textBox9.Text, comboBox1.Text, textBox10.Text, comboBox2.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked && checkBox3.Checked)
+            {
+                class1.delLayer("LayerKreslennya");
+                class1.delLayer("Defpoints"); //чекнути чи работає і якщо не - забити, зробити діменшин радіус
+                class1.delLayer("LayerSizes");
+            }
+            else if (checkBox2.Checked)
+            {
+                class1.delLayer("LayerKreslennya");
+            }
+            else if (checkBox3.Checked)
+            {
+                class1.delLayer("LayerSizes");
+            }
         }
     }
 }

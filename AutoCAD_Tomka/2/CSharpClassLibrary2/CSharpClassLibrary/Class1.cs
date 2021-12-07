@@ -23,6 +23,15 @@ namespace CSharpClassLibrary2
         private int hightToCenterCircle { get; set; }
         private int circleDiameter { get; set; }
 
+        private Point2d point0 { get; set; }
+        private Point2d point1 { get; set; }
+        private Point2d point2 { get; set; }
+        private Point2d point3 { get; set; }
+        private Point2d point4 { get; set; }
+        private Point2d point5 { get; set; }
+        private Point2d point6 { get; set; }
+        private Point2d point7 { get; set; }
+
         private int drawState;
         #endregion
 
@@ -81,6 +90,7 @@ namespace CSharpClassLibrary2
                     LayerTable acLyrTbl = acTrans.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
 
                     createLayer("LayerKreslennya", acTrans, acLyrTbl, acCurDb);
+                    acCurDb.Clayer = acLyrTbl["LayerKreslennya"];
                     #endregion
 
                     #region var for draw
@@ -101,17 +111,26 @@ namespace CSharpClassLibrary2
                     acPolyline.SetDatabaseDefaults();
 
                     // добавляем к полилинии вершины
-                    acPolyline.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
-                    acPolyline.AddVertexAt(1, new Point2d(0, squareHight), 0, 0, 0);
+                    point0 = new Point2d(0, 0);
+                    point1 = new Point2d(0, squareHight);
+                    point2 = new Point2d((squareWidth - upperWidthSlot) / 2, squareHight);
+                    point3 = new Point2d((squareWidth - lowerWidthSlot) / 2, squareHight - hightSlot);
+                    point4 = new Point2d(squareWidth - (squareWidth - lowerWidthSlot) / 2, squareHight - hightSlot);
+                    point5 = new Point2d(squareWidth - (squareWidth - upperWidthSlot) / 2, squareHight);
+                    point6 = new Point2d(squareWidth, squareHight);
+                    point7 = new Point2d(squareWidth, 0);
 
-                    acPolyline.AddVertexAt(2, new Point2d((squareWidth - upperWidthSlot) / 2, squareHight), 0, 0, 0);
-                    acPolyline.AddVertexAt(3, new Point2d((squareWidth - lowerWidthSlot) / 2, squareHight - hightSlot), 0, 0, 0);
-                    acPolyline.AddVertexAt(4, new Point2d(squareWidth - (squareWidth - lowerWidthSlot) / 2, squareHight - hightSlot), 0, 0, 0);
-                    acPolyline.AddVertexAt(5, new Point2d(squareWidth - (squareWidth - upperWidthSlot) / 2, squareHight), 0, 0, 0);
+                    acPolyline.AddVertexAt(0, point0, 0, 0, 0);
+                    acPolyline.AddVertexAt(1, point1, 0, 0, 0);
 
-                    acPolyline.AddVertexAt(6, new Point2d(squareWidth, squareHight), 0, 0, 0);
-                    acPolyline.AddVertexAt(7, new Point2d(squareWidth, 0), 0, 0, 0);
-                    acPolyline.AddVertexAt(8, new Point2d(0, 0), 0, 0, 0);
+                    acPolyline.AddVertexAt(2, point2, 0, 0, 0);
+                    acPolyline.AddVertexAt(3, point3, 0, 0, 0);
+                    acPolyline.AddVertexAt(4, point4, 0, 0, 0);
+                    acPolyline.AddVertexAt(5, point5, 0, 0, 0);
+
+                    acPolyline.AddVertexAt(6, point6, 0, 0, 0);
+                    acPolyline.AddVertexAt(7, point7, 0, 0, 0);
+                    acPolyline.AddVertexAt(8, point0, 0, 0, 0);
 
                     // закругляем куты
                     Fillet(acPolyline, roundingRadiusSlot, 3, 4);
@@ -122,6 +141,7 @@ namespace CSharpClassLibrary2
 
                     // также добавляем созданный объект в транзакцию
                     acTrans.AddNewlyCreatedDBObject(acPolyline, true);
+
                     #endregion
 
                     #region circle
@@ -149,20 +169,22 @@ namespace CSharpClassLibrary2
 
         private void DrawSizes()
         {
+            delLayer("Defpoints");
             delLayer("LayerSizes");
             DocumentCollection acDocMgr = acad.DocumentManager;
             Document acDoc = acad.DocumentManager.MdiActiveDocument;
             Database acCurDb = acDoc.Database;
+            Editor ed = acDoc.Editor;
 
             using (DocumentLock acLckDoc = acDoc.LockDocument())
             {
                 using (Transaction acTrans = acCurDb.TransactionManager.StartTransaction())
                 {
                     #region create Sizes layer
-                    // открываем таблицу слоев документа
                     LayerTable acLyrTbl = acTrans.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
 
                     createLayer("LayerSizes", acTrans, acLyrTbl, acCurDb);
+                    acCurDb.Clayer = acLyrTbl["LayerSizes"];
                     #endregion
 
                     #region var for draw
@@ -177,9 +199,166 @@ namespace CSharpClassLibrary2
 
                     #region draw sizes
 
+                    #region square hight
+                    using (RotatedDimension acRotDim = new RotatedDimension())
+                    {
+                        acRotDim.XLine1Point = new Point3d(point0.X, point0.Y, 0);
+                        acRotDim.XLine2Point = new Point3d(point1.X, point1.Y, 0);
+                        acRotDim.Rotation = Math.PI / 2; //90ang
+                        acRotDim.DimLinePoint = new Point3d(-(point1.Y / 4), point1.X / 4, 0);
+                        acRotDim.Dimasz = 2; // розмір стілки
+                        acRotDim.Dimtxt = 1; // розмір тексту
+
+                        acRotDim.DimensionStyle = acCurDb.Dimstyle;
+                        // Add the new object to Model space and the transaction
+                        acBlkTblRec.AppendEntity(acRotDim);
+                        acTrans.AddNewlyCreatedDBObject(acRotDim, true);
+                    }
                     #endregion
 
-                    // фиксируем изменения
+                    #region square width
+                    using (RotatedDimension acRotDim = new RotatedDimension())
+                    {
+                        acRotDim.XLine1Point = new Point3d(point0.X, point0.Y, 0);
+                        acRotDim.XLine2Point = new Point3d(point7.X, point7.Y, 0);
+                        acRotDim.DimLinePoint = new Point3d(point7.Y / 4, -(point7.X / 4), 0);
+                        acRotDim.Dimasz = 2; // розмір стілки
+                        acRotDim.Dimtxt = 1; // розмір тексту
+
+                        acRotDim.DimensionStyle = acCurDb.Dimstyle;
+                        // Add the new object to Model space and the transaction
+                        acBlkTblRec.AppendEntity(acRotDim);
+                        acTrans.AddNewlyCreatedDBObject(acRotDim, true);
+                    }
+                    #endregion
+
+                    #region upper slot width
+                    using (RotatedDimension acRotDim = new RotatedDimension())
+                    {
+                        acRotDim.XLine1Point = new Point3d(point2.X, point2.Y, 0);
+                        acRotDim.XLine2Point = new Point3d(point5.X, point5.Y, 0);
+                        acRotDim.DimLinePoint = new Point3d(0, squareHight + (point5.X / 8), 0);
+                        acRotDim.Dimasz = 2; // розмір стілки
+                        acRotDim.Dimtxt = 1; // розмір тексту
+
+                        acRotDim.DimensionStyle = acCurDb.Dimstyle;
+                        // Add the new object to Model space and the transaction
+                        acBlkTblRec.AppendEntity(acRotDim);
+                        acTrans.AddNewlyCreatedDBObject(acRotDim, true);
+                    }
+                    #endregion
+
+                    #region lower slot width
+                    using (RotatedDimension acRotDim = new RotatedDimension())
+                    {
+                        acRotDim.XLine1Point = new Point3d(point3.X, point3.Y, 0);
+                        acRotDim.XLine2Point = new Point3d(point4.X, point4.Y, 0);
+                        acRotDim.DimLinePoint = new Point3d(0, squareHight - hightSlot - (point4.X / 8), 0);
+                        acRotDim.Dimasz = 2; // розмір стілки
+                        acRotDim.Dimtxt = 1; // розмір тексту
+
+                        acRotDim.DimensionStyle = acCurDb.Dimstyle;
+                        // Add the new object to Model space and the transaction
+                        acBlkTblRec.AppendEntity(acRotDim);
+                        acTrans.AddNewlyCreatedDBObject(acRotDim, true);
+                    }
+                    #endregion
+
+                    #region slot hight
+                    using (RotatedDimension acRotDim = new RotatedDimension())
+                    {
+                        acRotDim.XLine1Point = new Point3d(point4.X, point4.Y, 0);
+                        acRotDim.XLine2Point = new Point3d(point5.X, point5.Y, 0);
+                        acRotDim.Rotation = Math.PI / 2; //90ang
+                        acRotDim.DimLinePoint = new Point3d(squareWidth - (squareWidth - lowerWidthSlot) / 2 + (hightSlot / 8), 0, 0);
+                        acRotDim.Dimasz = 2; // розмір стілки
+                        acRotDim.Dimtxt = 1; // розмір тексту
+
+                        acRotDim.DimensionStyle = acCurDb.Dimstyle;
+                        // Add the new object to Model space and the transaction
+                        acBlkTblRec.AppendEntity(acRotDim);
+                        acTrans.AddNewlyCreatedDBObject(acRotDim, true);
+                    }
+                    #endregion
+
+                    #region hight to center circle
+                    using (RotatedDimension acRotDim = new RotatedDimension())
+                    {
+                        acRotDim.XLine1Point = new Point3d((squareWidth - circleDiameter) / 2, 0, 0);
+                        acRotDim.XLine2Point = new Point3d((squareWidth - circleDiameter) / 2, hightToCenterCircle, 0);
+                        acRotDim.Rotation = Math.PI / 2; //90ang
+                        acRotDim.DimLinePoint = new Point3d((squareWidth - circleDiameter) / 2 - circleDiameter / 4, 0, 0);
+                        acRotDim.Dimasz = 2; // розмір стілки
+                        acRotDim.Dimtxt = 1; // розмір тексту
+
+                        acRotDim.DimensionStyle = acCurDb.Dimstyle;
+                        // Add the new object to Model space and the transaction
+                        acBlkTblRec.AppendEntity(acRotDim);
+                        acTrans.AddNewlyCreatedDBObject(acRotDim, true);
+                    }
+                    #endregion
+
+                    #region circle
+                    using (DiametricDimension acDiamDim = new DiametricDimension())
+                    {
+                        double angle1 = Math.PI - 0.3; // in radian
+                        double angle2 = -0.3; // in radian
+                        double cirRad = (circleDiameter / 2);
+
+                        acDiamDim.FarChordPoint = new Point3d(squareWidth / 2 + cirRad * Math.Cos(angle1), hightToCenterCircle + cirRad * Math.Sin(angle1), 0);
+                        acDiamDim.ChordPoint = new Point3d(squareWidth / 2 + cirRad * Math.Cos(angle2), hightToCenterCircle + cirRad * Math.Sin(angle2), 0);
+                        acDiamDim.LeaderLength = circleDiameter / 6;
+                        acDiamDim.Dimcen = -1;
+                        acDiamDim.Dimasz = 2; // розмір стілки
+                        acDiamDim.Dimtxt = 1; // розмір тексту
+                        acDiamDim.Dimtih = true; // вирівняти текст 
+                        acDiamDim.Dimtofl = true; // лінії миж точками замість маркера по центру
+
+                        acDiamDim.DimensionStyle = acCurDb.Dimstyle;
+
+                        acBlkTblRec.AppendEntity(acDiamDim);
+                        acTrans.AddNewlyCreatedDBObject(acDiamDim, true);
+                    }
+                    #endregion
+
+                    #region to do RadialDimension
+                    PromptSelectionResult selRes = ed.SelectAll();
+                    ObjectId[] ids = selRes.Value.GetObjectIds();
+                    Polyline myPoli = null;
+                    foreach (ObjectId id in ids)
+                    {
+                        if (((Entity)acTrans.GetObject(id, OpenMode.ForRead)).GetType() == typeof(Polyline))
+                        {
+                            myPoli = (Polyline)acTrans.GetObject(id, OpenMode.ForRead);
+                            break;
+                        }
+                    }
+                    if (myPoli != null)
+                    {
+                        myPoli.GetPoint2dAt(4);
+                        Point3d dPol = myPoli.GetPoint3dAt(4);
+                        double angle = Math.PI + Math.PI / 4; // in radian
+                        using (RadialDimension acRadDim = new RadialDimension())
+                        {
+                            acRadDim.Center = new Point3d(dPol.X, dPol.Y + roundingRadiusSlot, 0);
+                            acRadDim.ChordPoint = new Point3d(dPol.X + roundingRadiusSlot * Math.Cos(angle), dPol.Y + roundingRadiusSlot + roundingRadiusSlot * Math.Sin(angle), 0);
+                            acRadDim.LeaderLength = 5;
+                            acRadDim.DimensionStyle = acCurDb.Dimstyle;
+                            acRadDim.Dimasz = 2; // розмір стілки
+                            acRadDim.Dimtxt = 1; // розмір тексту
+                            acRadDim.Dimtmove = 2;
+                            acRadDim.TextPosition = new Point3d(dPol.X, dPol.Y + roundingRadiusSlot + 2, 0);
+
+                            // Add the new object to Model space and the transaction
+                            acBlkTblRec.AppendEntity(acRadDim);
+                            acTrans.AddNewlyCreatedDBObject(acRadDim, true);
+                        }
+                    }
+
+                    #endregion
+
+                    #endregion
+
                     acTrans.Commit();
                 }
             }
@@ -220,46 +399,59 @@ namespace CSharpClassLibrary2
                     #endregion
 
                     #region edit object
-                    #region layer 1 (kreslenya)
+                    #region layer 1 (kreslennya)
                     acCurDb.Clayer = acLyrTbl["LayerKreslennya"];
+
                     if (lineThicknessLayer1.Length > 0)
                     {
                         foreach (ObjectId id in ids)
                         {
-                            // приводим каждый из них к типу Entity
-                            Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
+                            Entity entForIf = (Entity)tr.GetObject(id, OpenMode.ForRead);
+                            if (entForIf.Layer == "LayerKreslennya")
+                            {
+                                if (entForIf.GetType() == typeof(Polyline))
+                                {
+                                    Polyline entity = (Polyline)tr.GetObject(id, OpenMode.ForRead);
 
-                            // открываем объект на запись
-                            entity.UpgradeOpen();
+                                    entity.UpgradeOpen();
+                                    entity.ConstantWidth = double.Parse(lineThicknessLayer1);
+                                    entity.Closed = true; //not work
+                                }
 
-                            // изменяем цвет
-                            entity.LinetypeScale = double.Parse(lineThicknessLayer1); // чого не міняється розмір лінії
+                                if (entForIf.GetType() == typeof(Circle))
+                                {
+                                    Circle entity = (Circle)tr.GetObject(id, OpenMode.ForRead);
+
+                                    entity.UpgradeOpen();
+                                    entity.Thickness = double.Parse(lineThicknessLayer1);
+
+                                }
+                            }
+
                         }
                     }
                     if (lineColorLayer1.Length > 0)
                     {
-                        PrintMsg(lineColorLayer1);
-                        // "пробегаем" по всем полученным объектам
-                        foreach (ObjectId id in ids)
-                        {
-                            // приводим каждый из них к типу Entity
-                            Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
-
-                            // открываем объект на запись
-                            entity.UpgradeOpen();
-
-                            // изменяем цвет
-                            //entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 128, 0);
-                            entity.Color = Autodesk.AutoCAD.Colors.Color. FromNames(lineColorLayer1, lineColorLayer1); // добавити вибір кольору
-                        }
+                        changeColorEntity("LayerKreslennya", lineColorLayer1, tr, ids);
                     }
-                    acCurDb.Clayer = acLyrTbl["LayerSizes"];
                     #endregion
+
                     #region layer 2 (sizes)
+                    acCurDb.Clayer = acLyrTbl["LayerSizes"];
+                    if (lineThicknessLayer2.Length > 0)
+                    {
+                        //changeLineWidthEntity("LayerSizes", lineThicknessLayer2, tr, ids);
+                    }
+                    if (lineColorLayer2.Length > 0)
+                    {
+                        changeColorEntity("LayerSizes", lineColorLayer2, tr, ids);
+                    }
                     #endregion
                     #endregion
 
                     #region finish tranzaction
+                    // Set the new document current
+                    acad.DocumentManager.MdiActiveDocument = acDoc;
                     // фиксируем транзакцию
                     tr.Commit();
                 }
@@ -268,31 +460,78 @@ namespace CSharpClassLibrary2
         }
 
         #region other func
-
-        private void createLayer(string currentLayer, Transaction tr, LayerTable acLyrTbl, Database acCurDb)
+        private void changeColorEntity(string layer, string lineColor, Transaction tr, ObjectId[] ids)
         {
-            try
+            // "пробегаем" по всем полученным объектам
+            foreach (ObjectId id in ids)
             {
-                // создаем новый слой и задаем ему имя
-                LayerTableRecord acLyrTblRec = new LayerTableRecord();
-                acLyrTblRec.Name = currentLayer;
+                Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
+                if (entity.Layer == layer)
+                {
+                    entity.UpgradeOpen();
 
-                // заносим созданный слой в таблицу слоев
-                acLyrTbl.Add(acLyrTblRec);
+                    // изменяем цвет
+                    //entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 128, 0);
+                    switch (lineColor)
+                    {
+                        case "red":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 0, 0);
+                            break;
+                        case "blue":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(0, 0, 255);
+                            break;
+                        case "yellow":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 255, 0);
+                            break;
+                        case "green":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(0, 255, 0);
+                            break;
+                        case "orange":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 165, 0);
+                            break;
+                        case "pink":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 0, 255);
+                            break;
+                        case "purple":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(128, 0, 128);
+                            break;
+                        case "black":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(0, 0, 0);
+                            break;
+                        case "white":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(255, 255, 255);
+                            break;
+                        case "gray":
+                            entity.Color = Autodesk.AutoCAD.Colors.Color.FromRgb(128, 128, 128);
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
-                // добавляем созданный слой в документ
-                tr.AddNewlyCreatedDBObject(acLyrTblRec, true);
-
-                acCurDb.Clayer = acLyrTbl[currentLayer];
-            }
-            catch (Autodesk.AutoCAD.Runtime.Exception Ex)
-            {
-                PrintMsg("Не можу створити шар " + currentLayer);
-                acad.ShowAlertDialog("Ошибка:\n" + Ex.Message);
             }
         }
 
-        private void delLayer(string layer)
+        private void createLayer(string Layer, Transaction tr, LayerTable acLyrTbl, Database acCurDb)
+        {
+            try
+            {
+                LayerTableRecord acLyrTblRec = new LayerTableRecord();
+                acLyrTblRec.Name = Layer;
+
+                acLyrTbl.Add(acLyrTblRec);
+                tr.AddNewlyCreatedDBObject(acLyrTblRec, true);
+
+                acCurDb.Clayer = acLyrTbl[Layer];
+                //PrintMsg("Успішно створено шар " + Layer);  //debug
+            }
+            catch (Autodesk.AutoCAD.Runtime.Exception Ex)
+            {
+                acad.ShowAlertDialog("Помилка створення шару " + Layer + ":\n" + Ex.Message);
+            }
+        }
+
+        public void delLayer(string layer)
         {
             // получаем текущий документ и его БД
             Document acDoc = acad.DocumentManager.MdiActiveDocument;
@@ -304,6 +543,7 @@ namespace CSharpClassLibrary2
                 // начинаем транзакцию
                 using (Transaction tr = acCurDb.TransactionManager.StartTransaction())
                 {
+                    //PrintMsg(layer + " поінт 0");
                     // открываем таблицу слоев документа
                     LayerTable acLyrTbl = tr.GetObject(acCurDb.LayerTableId, OpenMode.ForWrite) as LayerTable;
 
@@ -313,52 +553,50 @@ namespace CSharpClassLibrary2
                         return;
                     }
 
-                    // устанавливаем нулевой слой в качестве текущего
-                    acCurDb.Clayer = acLyrTbl["0"];
-
+                    acCurDb.Clayer = acLyrTbl[layer];
                     #region del all entity
-                    // прокачати провірку: чи є обєкти на слою, якщо є - видалити
-
                     Editor ed = acDoc.Editor;
-
                     PromptSelectionResult selRes = ed.SelectAll();
 
                     // если произошла ошибка - сообщаем о ней
                     if (selRes.Status != PromptStatus.OK)
                     {
-                        ed.WriteMessage("\nError!\n");
-                        return;
+                        ed.WriteMessage("\nВиникла помилка при виборі обєктів! Пропускаю дію \n");
                     }
-
-                    // получаем массив ID объектов
-                    ObjectId[] ids = selRes.Value.GetObjectIds();
-
-                    // "пробегаем" по всем полученным объектам
-                    foreach (ObjectId id in ids)
+                    else
                     {
-                        // приводим каждый из них к типу Entity
-                        Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
+                        // получаем массив ID объектов
+                        ObjectId[] ids = selRes.Value.GetObjectIds();
 
-                        try
+                        foreach (ObjectId id in ids)
                         {
-                            // открываем приговоренный объект на запись
-                            entity.UpgradeOpen();
-
-                            // удаляем объект
-                            entity.Erase();
-                        }
-                        catch (Autodesk.AutoCAD.Runtime.Exception)
-                        {
-                            ed.WriteMessage("\nSomething went wrong...\n");
+                            Entity entity = (Entity)tr.GetObject(id, OpenMode.ForRead);
+                            if (entity.Layer == layer) // видаляємо тільки обєкти на нашому слою
+                            {
+                                try
+                                {
+                                    entity.UpgradeOpen();
+                                    entity.Erase();
+                                }
+                                catch (Autodesk.AutoCAD.Runtime.Exception)
+                                {
+                                    ed.WriteMessage("\nSomething went wrong...\n");
+                                }
+                            }
                         }
                     }
 
                     #endregion
 
+                    // устанавливаем нулевой слой в качестве текущего
+                    acCurDb.Clayer = acLyrTbl["0"];
+
                     // убеждаемся, что на удаляемый слой не ссылаются другие объекты
                     ObjectIdCollection acObjIdColl = new ObjectIdCollection();
                     acObjIdColl.Add(acLyrTbl[layer]);
                     acCurDb.Purge(acObjIdColl);
+
+                    //PrintMsg(layer + " поінт 1"); //debug
 
                     if (acObjIdColl.Count > 0)
                     {
@@ -369,14 +607,12 @@ namespace CSharpClassLibrary2
                         {
                             // удаляем слой
                             acLyrTblRec.Erase(true);
-                            // фиксируем транзакцию
                             tr.Commit();
+                            //PrintMsg("Успішно видалено шар " + layer);  //debug
                         }
                         catch (Autodesk.AutoCAD.Runtime.Exception Ex)
                         {
-                            PrintMsg("Не можу видалити шар " + layer);
-                            // если произошла ошибка - значит, слой удалить нельзя
-                            acad.ShowAlertDialog("Ошибка:\n" + Ex.Message);
+                            acad.ShowAlertDialog("Неможливо видалити шар " + layer + ":\n" + Ex.Message);
                             throw;
                         }
                     }
@@ -483,5 +719,6 @@ namespace CSharpClassLibrary2
             MessageBox.Show(text);
         }
         #endregion
+
     }
 }
