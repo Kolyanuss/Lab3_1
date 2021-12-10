@@ -1,0 +1,28 @@
+slender        - струнка
+freckles       - веснянки
+hazel          - карий/ясно-коричнивий
+flat           - плоский
+even           - навіть
+pushy          - настирливий
+curt           - короткий
+considerate    - уважний
+constitution   - конституція
+
+bald           - лисий
+forehead       - лоб
+obese          - ожиріння
+toddler        - малюк
+eye-lashes     - вії
+
+self-confident - впевнений у собі
+sincere        - щирий
+peevish        - роздратований
+prudent        - розважливий
+stubborn       - впертий
+jealous        - ревнивий
+amiable        - привітний
+cheekbones     - скулы
+complexion     - колір обличчя
+swarthy        - смаглявий
+thrifty        - ощадливий
+auburn         - каштановий
